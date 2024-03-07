@@ -6,14 +6,14 @@
 
 <h4 align="center"> 
 	🚧  🚀 Em construção...  🚧
-</h4
+</h4>
 
-# Clone este repositório
+## Clone este repositório
 $ git clone <https://github.com/KaioAntonio/api-cashflow/>
 
-# Acesse a pasta do projeto no terminal/cmd
+## Acesse a pasta do projeto no terminal/cmd
 $ cd api-cashflow
 
-# Execute a aplicação em modo de desenvolvimento
+## Execute a aplicação em modo de desenvolvimento
 
-# O servidor inciará na porta:8080 - acesse <http://localhost:8080> 
+## O servidor inciará na porta:8080 - acesse <http://localhost:8080> 
