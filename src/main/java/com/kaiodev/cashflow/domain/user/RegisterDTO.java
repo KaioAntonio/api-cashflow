@@ -1,4 +1,12 @@
 package com.kaiodev.cashflow.domain.user;
 
-public record RegisterDTO(String email, String name, String password) {
+import io.swagger.v3.oas.annotations.media.Schema;
+
+public record RegisterDTO(
+        @Schema(example = "user@mail.com")
+        String email,
+        @Schema(example = "user")
+        String name,
+        @Schema(example = "1234")
+        String password) {
 }
