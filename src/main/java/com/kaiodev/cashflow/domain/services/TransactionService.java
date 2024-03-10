@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 
+import com.kaiodev.cashflow.domain.services.validator.TransactionValidator;
 import com.kaiodev.cashflow.exception.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,59 +21,51 @@ import com.kaiodev.cashflow.domain.user.User;
 
 @Service
 public class TransactionService {
+
     @Autowired
-    TransactionRepository repository;
+    private TransactionRepository repository;
+    @Autowired
+    private TransactionValidator transactionValidator;
 
     public Page<TransactionDTO> getUserTransactions(String userId, String transactionDescription, Pageable pageable) {
-        var response = repository.findByUserIdAndDescriptionContainingOrderByCreatedAtDesc(userId, transactionDescription, pageable);
-
-        return response;
+        return repository.findByUserIdAndDescriptionContainingOrderByCreatedAtDesc(userId, transactionDescription, pageable);
     }
 
     public Page<TransactionDTO> getUserTransactions(String userId, Pageable pageable) {
-        var response = repository.findByUserIdOrderByCreatedAtDesc(userId, pageable);
-
-        return response;
+        return repository.findByUserIdOrderByCreatedAtDesc(userId, pageable);
     }
 
     public LastTransactionsDTO getLastTransactions(String userId) {
         Transaction lastCreditTransaction = this
-                .findLastTransactionByType(repository.findAllByUserId(userId), TransactionType.credit);
+                .findLastTransactionByType(repository.findAllByUserId(userId), TransactionType.CREDIT);
         Transaction lastDebitTransaction = this
-                .findLastTransactionByType(repository.findAllByUserId(userId), TransactionType.debit);
+                .findLastTransactionByType(repository.findAllByUserId(userId), TransactionType.DEBIT);
 
         return new LastTransactionsDTO(lastCreditTransaction, lastDebitTransaction);
     }
 
-    public BalanceDTO getUserBalance(String userId) {
+    public BalanceDTO calculateUserBalance(String userId) {
         List<Transaction> userTransactions = repository.findAllByUserId(userId);
 
-        final double[] credits = { 0.0 };
-        final double[] debits = { 0.0 };
+        double totalCredits = userTransactions.stream()
+                .filter(transaction -> transaction.getType() == TransactionType.CREDIT)
+                .mapToDouble(Transaction::getAmount)
+                .sum();
 
-        userTransactions.stream().forEach(transaction -> {
-            if (transaction.getType() == TransactionType.credit) {
-                credits[0] += transaction.getAmount();
-            } else {
-                debits[0] += transaction.getAmount();
-            }
-        });
+        double totalDebits = userTransactions.stream()
+                .filter(transaction -> transaction.getType() == TransactionType.DEBIT)
+                .mapToDouble(Transaction::getAmount)
+                .sum();
 
-        return new BalanceDTO(credits[0], debits[0], credits[0] - debits[0]);
+        double balance = totalCredits - totalDebits;
+
+        return new BalanceDTO(totalCredits, totalDebits, balance);
     }
 
     public Transaction createTransaction(Transaction data, User user) throws BusinessException {
-        BalanceDTO balance = this.getUserBalance(user.getId());
+        BalanceDTO balance = this.calculateUserBalance(user.getId());
 
-        if (data.getType() == TransactionType.debit && data.getAmount() > balance.balance())
-            throw new BusinessException("Saldo insuficiente");
-        else if (data.getDescription().length() < 2) {
-            throw new BusinessException("A descrição deve possuir mais de dois caracteres");
-        } else if (data.getAmount() < 0) {
-            throw new BusinessException("Valor de transação deve ser maior que zero");
-        } else if (data.getCategory().length() < 2) {
-            throw new BusinessException("A categoria deve possuir mais de dois caracteres");
-        }
+        transactionValidator.createTransactionValidator(data, balance);
 
         Transaction transaction = new Transaction(data.getAmount(), data.getDescription(), data.getCategory(),
                 data.getType(),

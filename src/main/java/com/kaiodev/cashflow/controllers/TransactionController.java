@@ -70,7 +70,7 @@ public class TransactionController {
         public ResponseEntity<BalanceDTO> getUserBalance(HttpServletRequest request) throws BusinessException {
                 User user = userService.getUser(request);
 
-                return ResponseEntity.ok(transactionService.getUserBalance(user.getId()));
+                return ResponseEntity.ok(transactionService.calculateUserBalance(user.getId()));
         }
 
         @Operation(summary = "Retorna as últimas transações do usuário", description = "Retorna as últimas transações feitas pelo usuário")

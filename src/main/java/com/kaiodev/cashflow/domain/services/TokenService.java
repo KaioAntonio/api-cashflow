@@ -22,13 +22,12 @@ public class TokenService {
     public String generateToken(User user) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
-            String token = JWT.create()
+
+            return JWT.create()
                     .withIssuer("cashflow-api")
                     .withSubject(user.getUsername())
-                    .withExpiresAt(genExpirationDate(72))
+                    .withExpiresAt(genExpirationDate())
                     .sign(algorithm);
-
-            return token;
         } catch (JWTCreationException exception) {
             throw new RuntimeException("Erro ao gerar token", exception);
         }
@@ -47,7 +46,7 @@ public class TokenService {
         }
     }
 
-    private Instant genExpirationDate(int plusHours) {
-        return LocalDateTime.now().plusHours(plusHours).toInstant(ZoneOffset.of("-03:00"));
+    private Instant genExpirationDate() {
+        return LocalDateTime.now().plusHours(72).toInstant(ZoneOffset.of("-03:00"));
     }
 }
