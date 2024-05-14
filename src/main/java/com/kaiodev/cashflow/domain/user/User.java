@@ -39,9 +39,6 @@ public class User implements UserDetails {
 
     private String password;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Transaction> transactions;
-
     public User(String email, String name, String password) {
         this.email = email;
         this.name = name;
