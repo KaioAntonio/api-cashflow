@@ -1,24 +1,22 @@
 package com.kaiodev.cashflow.domain.services;
 
-import java.time.LocalDateTime;
-import java.util.Comparator;
-import java.util.List;
-
-import com.kaiodev.cashflow.domain.services.validator.TransactionValidator;
-import com.kaiodev.cashflow.exception.BusinessException;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-
 import com.kaiodev.cashflow.domain.repositories.TransactionRepository;
+import com.kaiodev.cashflow.domain.services.validator.TransactionValidator;
 import com.kaiodev.cashflow.domain.transaction.LastTransactionsDTO;
 import com.kaiodev.cashflow.domain.transaction.Transaction;
 import com.kaiodev.cashflow.domain.transaction.TransactionDTO;
 import com.kaiodev.cashflow.domain.transaction.TransactionType;
 import com.kaiodev.cashflow.domain.user.BalanceDTO;
 import com.kaiodev.cashflow.domain.user.User;
+import com.kaiodev.cashflow.exception.BusinessException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor

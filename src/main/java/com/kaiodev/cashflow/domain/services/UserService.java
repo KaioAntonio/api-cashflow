@@ -1,22 +1,19 @@
 package com.kaiodev.cashflow.domain.services;
 
-import java.util.regex.Pattern;
-
 import com.kaiodev.cashflow.domain.repositories.UserRepository;
+import com.kaiodev.cashflow.domain.user.AuthenticationDTO;
+import com.kaiodev.cashflow.domain.user.LoginResponseDTO;
+import com.kaiodev.cashflow.domain.user.RegisterDTO;
+import com.kaiodev.cashflow.domain.user.User;
 import com.kaiodev.cashflow.exception.BusinessException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.kaiodev.cashflow.domain.user.AuthenticationDTO;
-import com.kaiodev.cashflow.domain.user.LoginResponseDTO;
-import com.kaiodev.cashflow.domain.user.RegisterDTO;
-import com.kaiodev.cashflow.domain.user.User;
-
-import jakarta.servlet.http.HttpServletRequest;
+import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor

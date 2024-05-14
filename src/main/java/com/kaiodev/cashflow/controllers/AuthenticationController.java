@@ -1,24 +1,21 @@
 package com.kaiodev.cashflow.controllers;
 
+import com.kaiodev.cashflow.domain.services.UserService;
+import com.kaiodev.cashflow.domain.user.AuthenticationDTO;
+import com.kaiodev.cashflow.domain.user.LoginResponseDTO;
+import com.kaiodev.cashflow.domain.user.RegisterDTO;
+import com.kaiodev.cashflow.domain.user.User;
 import com.kaiodev.cashflow.exception.BusinessException;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.kaiodev.cashflow.domain.services.UserService;
-import com.kaiodev.cashflow.domain.user.AuthenticationDTO;
-import com.kaiodev.cashflow.domain.user.LoginResponseDTO;
-import com.kaiodev.cashflow.domain.user.RegisterDTO;
-import com.kaiodev.cashflow.domain.user.User;
-
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
 @RequestMapping("auth")

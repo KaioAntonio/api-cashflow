@@ -1,8 +1,19 @@
 package com.kaiodev.cashflow.controllers;
 
+import com.kaiodev.cashflow.domain.services.TransactionService;
+import com.kaiodev.cashflow.domain.services.UserService;
+import com.kaiodev.cashflow.domain.transaction.LastTransactionsDTO;
+import com.kaiodev.cashflow.domain.transaction.Transaction;
+import com.kaiodev.cashflow.domain.transaction.TransactionDTO;
+import com.kaiodev.cashflow.domain.user.BalanceDTO;
+import com.kaiodev.cashflow.domain.user.User;
 import com.kaiodev.cashflow.exception.BusinessException;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -13,20 +24,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.kaiodev.cashflow.domain.services.TransactionService;
-import com.kaiodev.cashflow.domain.services.UserService;
-import com.kaiodev.cashflow.domain.transaction.LastTransactionsDTO;
-import com.kaiodev.cashflow.domain.transaction.Transaction;
-import com.kaiodev.cashflow.domain.transaction.TransactionDTO;
-import com.kaiodev.cashflow.domain.user.BalanceDTO;
-import com.kaiodev.cashflow.domain.user.User;
-
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import jakarta.servlet.http.HttpServletRequest;
 
 @RequestMapping("/user/transactions")
 @RestController
