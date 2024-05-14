@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 
 import com.kaiodev.cashflow.domain.repositories.UserRepository;
 import com.kaiodev.cashflow.exception.BusinessException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,15 +19,15 @@ import com.kaiodev.cashflow.domain.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
-    @Autowired
-    TokenService tokenService;
 
-    @Autowired
-    UserRepository userRepository;
+    private final TokenService tokenService;
 
-    @Autowired
-    AuthenticationManager authenticationManager;
+
+    private final UserRepository userRepository;
+
+    private final AuthenticationManager authenticationManager;
 
     public User getUser(HttpServletRequest request) throws BusinessException {
         String token = request.getHeader("Authorization").replace("Bearer ", "");

@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.kaiodev.cashflow.domain.services.validator.TransactionValidator;
 import com.kaiodev.cashflow.exception.BusinessException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,12 +21,13 @@ import com.kaiodev.cashflow.domain.user.BalanceDTO;
 import com.kaiodev.cashflow.domain.user.User;
 
 @Service
+@RequiredArgsConstructor
 public class TransactionService {
 
-    @Autowired
-    private TransactionRepository repository;
-    @Autowired
-    private TransactionValidator transactionValidator;
+
+    private final TransactionRepository repository;
+
+    private final TransactionValidator transactionValidator;
 
     public Page<TransactionDTO> findTransactionsByUserAndDescription(String userId, String transactionDescription,
                                                                      Pageable pageable) {
