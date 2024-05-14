@@ -29,7 +29,7 @@ public class TokenService {
                     .withExpiresAt(genExpirationDate())
                     .sign(algorithm);
         } catch (JWTCreationException exception) {
-            throw new RuntimeException("Erro ao gerar token", exception);
+            throw new JWTCreationException("Erro ao gerar token", exception);
         }
     }
 
@@ -42,7 +42,7 @@ public class TokenService {
                     .verify(token)
                     .getSubject();
         } catch (JWTVerificationException exception) {
-            throw new RuntimeException("Erro ao validar token", exception);
+            throw new JWTVerificationException("Erro ao validar token", exception);
         }
     }
 

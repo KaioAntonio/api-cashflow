@@ -1,6 +1,7 @@
 package com.kaiodev.cashflow.controllers;
 
 import com.kaiodev.cashflow.exception.BusinessException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,9 +23,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 @RestController
 @RequestMapping("auth")
 @CrossOrigin
+@RequiredArgsConstructor
 public class AuthenticationController {
-    @Autowired
-    private UserService userService;
+
+    private final UserService userService;
 
     @Operation(summary = "Faz o login do usuário", description = "Faz o login do usuário")
     @ApiResponses(value = {

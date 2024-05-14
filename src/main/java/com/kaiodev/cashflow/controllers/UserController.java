@@ -1,6 +1,7 @@
 package com.kaiodev.cashflow.controllers;
 
 import com.kaiodev.cashflow.exception.BusinessException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,9 +23,10 @@ import jakarta.servlet.http.HttpServletRequest;
 @CrossOrigin
 @RequestMapping("/user")
 @SecurityRequirement(name = "bearer-key")
+@RequiredArgsConstructor
 public class UserController {
-    @Autowired
-    UserService userService;
+
+    private final UserService userService;
 
     @Operation(summary = "Retorna dados do usuário", description = "Retorna os dados do usuário a partir do token")
     @ApiResponses(value = {

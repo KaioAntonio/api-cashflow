@@ -1,6 +1,7 @@
 package com.kaiodev.cashflow.controllers;
 
 import com.kaiodev.cashflow.exception.BusinessException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,12 +32,13 @@ import jakarta.servlet.http.HttpServletRequest;
 @RestController
 @CrossOrigin
 @SecurityRequirement(name = "bearer-key")
+@RequiredArgsConstructor
 public class TransactionController {
-        @Autowired
-        UserService userService;
 
-        @Autowired
-        TransactionService transactionService;
+        private final UserService userService;
+
+
+        private final TransactionService transactionService;
 
         @Operation(summary = "Retorna transações do usuário", description = "Retorna todas transações do usuário")
         @ApiResponses(value = {
