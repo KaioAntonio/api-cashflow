@@ -31,8 +31,7 @@ public class UserService {
 
         String sub = tokenService.validateToken(token);
         if (sub == null) throw new BusinessException("Token inválido");
-        User user = (User) userRepository.findByEmail(sub);
-        return user;
+        return (User) userRepository.findByEmail(sub);
     }
 
     public User createUser(RegisterDTO data) throws BusinessException {
