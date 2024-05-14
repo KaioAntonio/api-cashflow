@@ -27,11 +27,13 @@ public class TransactionService {
     @Autowired
     private TransactionValidator transactionValidator;
 
-    public Page<TransactionDTO> getUserTransactions(String userId, String transactionDescription, Pageable pageable) {
-        return repository.findByUserIdAndDescriptionContainingOrderByCreatedAtDesc(userId, transactionDescription, pageable);
+    public Page<TransactionDTO> findTransactionsByUserAndDescription(String userId, String transactionDescription,
+                                                                     Pageable pageable) {
+        return repository.findByUserIdAndDescriptionContainingOrderByCreatedAtDesc(
+                userId, transactionDescription, pageable);
     }
 
-    public Page<TransactionDTO> getUserTransactions(String userId, Pageable pageable) {
+    public Page<TransactionDTO> findTransactionsByUser(String userId, Pageable pageable) {
         return repository.findByUserIdOrderByCreatedAtDesc(userId, pageable);
     }
 

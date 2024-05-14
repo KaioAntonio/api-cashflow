@@ -53,10 +53,10 @@ public class TransactionController {
                 User user = userService.getUser(request);
 
                 if (transactionDescription != null && !transactionDescription.isEmpty()) {
-                        return ResponseEntity.ok(transactionService.getUserTransactions(user.getId(),
+                        return ResponseEntity.ok(transactionService.findTransactionsByUserAndDescription(user.getId(),
                                         transactionDescription, pageable));
                 } else {
-                        return ResponseEntity.ok(transactionService.getUserTransactions(user.getId(), pageable));
+                        return ResponseEntity.ok(transactionService.findTransactionsByUser(user.getId(), pageable));
                 }
         }
 
